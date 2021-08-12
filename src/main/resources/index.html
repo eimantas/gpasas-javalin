@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style type="text/css">
+	#hero{padding-top:.8em;padding-bottom:2em}body{font:Helvetica-Neue}h1{padding-bottom:.8em;text-align:center}#upload-button,#file-label{margin-top:.7em}.custom-file-input.selected:lang(en)::after{content:""!important}.custom-file{overflow:hidden;width:100%;margin-top:.8em}.custom-file-input{white-space:nowrap}label{display:block;width:100%}input[type='file']{display:none}.btn,.custom-file-label{font-size:1em;width:100%;font-weight:500}.custom-file-label{background-color:#E6E8F0}#android-hint{margin-top:1em;text-align:center;}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 offset-md-4">
+				<svg width="100%" height="194" viewBox="0 0 496 194" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect width="496" height="194" rx="20" fill="#26C669"/>
+					<g clip-path="url(#clip0)">
+						<path d="M290.912 33H204.86C192.625 33 182.706 42.9184 182.706 55.1533V251.914C182.706 264.149 192.625 274.068 204.86 274.068H290.912C303.147 274.068 313.065 264.149 313.065 251.914V55.1533C313.065 42.9184 303.147 33 290.912 33Z" fill="url(#paint0_linear)"/>
+						<path d="M290.932 40.5424H204.835C197.232 40.5424 191.069 46.7056 191.069 54.3082V252.76C191.069 260.362 197.232 266.525 204.835 266.525H290.932C298.534 266.525 304.697 260.362 304.697 252.76V54.3082C304.697 46.7056 298.534 40.5424 290.932 40.5424Z" fill="white"/>
+						<path d="M268.24 51.0876H227.519C225.797 51.0857 224.112 50.5877 222.665 49.6532C221.219 48.7187 220.072 47.3873 219.362 45.8182L215.809 37.9493H279.957L276.404 45.8182C275.693 47.3883 274.546 48.7204 273.098 49.6549C271.65 50.5895 269.964 51.0869 268.24 51.0876Z" fill="#667D94"/>
+						<rect x="222.649" y="89.7705" width="51.2215" height="51.2215" rx="3.41477" stroke="#313A4F" stroke-width="3.41477"/>
+						<path d="M215.82 97.4538L215.82 91.478C215.82 86.7631 219.642 82.941 224.357 82.941H231.187" stroke="#313A4F" stroke-width="3.41477"/>
+						<path d="M215.82 132.455L215.82 138.431C215.82 143.146 219.642 146.968 224.357 146.968H231.187" stroke="#313A4F" stroke-width="3.41477"/>
+						<path d="M280.701 97.4538L280.701 91.478C280.701 86.7631 276.879 82.941 272.164 82.941H265.334" stroke="#313A4F" stroke-width="3.41477"/>
+						<rect x="242.338" y="109.918" width="40.3797" height="40.3797" rx="8.62229" fill="#26C669" stroke="white" stroke-width="3.67088"/>
+						<path d="M255.747 128.58C255.097 127.827 253.961 127.744 253.208 128.394C252.456 129.043 252.372 130.18 253.022 130.932L255.747 128.58ZM259.848 136.083L258.486 137.26C258.816 137.642 259.291 137.868 259.795 137.883C260.3 137.897 260.787 137.7 261.139 137.338L259.848 136.083ZM272.749 125.386C273.442 124.673 273.426 123.533 272.713 122.841C271.999 122.148 270.86 122.164 270.167 122.878L272.749 125.386ZM253.022 130.932L258.486 137.26L261.21 134.907L255.747 128.58L253.022 130.932ZM261.139 137.338L272.749 125.386L270.167 122.878L258.557 134.829L261.139 137.338Z" fill="white"/>
+					</g>
+					<defs>
+						<linearGradient id="paint0_linear" x1="247.886" y1="33" x2="247.886" y2="194" gradientUnits="userSpaceOnUse">
+							<stop stop-color="#667F95"/>
+							<stop offset="1" stop-color="#16162B"/>
+						</linearGradient>
+						<clipPath id="clip0">
+							<rect width="129.431" height="161" fill="white" transform="translate(183 33)"/>
+						</clipPath>
+					</defs>
+				</svg>
+
+				<!-- <img src="/gpass.svg" width="100%" id="hero"> -->
+				<h1>Galimybių pasas iOS piniginėje</h1>
+				<div>
+					<ol>
+						<li>pasirink paso pdf failą</li>
+						<li>spausk "Patvirtinti"</li>
+						<li>atsisiųsk pasą į iOS piniginę</li>
+					</ol>
+				</div>
+				<form id="form" method="post" action="/upload" enctype="multipart/form-data">
+					<div class="input-group">
+						<div class="custom-file">
+							<input type="file" class="custom-file-input" id="customFileInput" aria-describedby="customFileInput" name="gpass" accept=".pdf">
+							<label id="file-label" class="custom-file-label btn btn-lg btn-block" for="customFileInput">Rinktis PDF</label>
+						</div>
+					</div>
+					<button disabled="true" id="upload-button" type="submit" class="btn btn-primary btn-lg btn-block">Patvirtinti</button>
+				</form>
+				<p id="android-hint">
+					Android vartotojai gali atsidaryti pkpass su <a href="https://play.google.com/store/apps/details?id=io.walletpasses.android">WalletPasses programėle</a>.
+				</p>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$("#customFileInput")[0].addEventListener("change", function() {
+			$("#upload-button")[0].disabled = false;
+			const file = $("#customFileInput")[0].files[0];
+			$("#file-label")[0].innerHTML = file.name;
+		})
+	</script>
+</body>
+</html>
