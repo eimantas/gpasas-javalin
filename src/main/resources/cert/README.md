@@ -1,3 +1,1 @@
-Šiame kataloge įdėkite paso sertifikato .p12 failą.
-
-Jų kelią nurodykite vietoje `{P12_CERT_PATH}` teksto.
+Add your Apple developer certificate (*.p12 file) to this folder and edit /src/main/java/gpasas/Main.java to specify path and password
