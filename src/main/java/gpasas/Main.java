@@ -29,13 +29,41 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 public class Main {
+    private static final byte[] indexHtml;
+    private static final PKPassTemplateInMemory passTemplate;
+    private static final PKSigningInformation pkSigningInformation;
+
+    static {
+        try {
+            // Change these values
+            String certificatePath = "/cert/my.p12";
+            String certificatePassword = "password123";
+
+            indexHtml = getResource("/index.html").readAllBytes();
+
+            passTemplate = new PKPassTemplateInMemory();
+            passTemplate.addFile("icon.png", getResource("/template/icon.png"));
+            passTemplate.addFile("icon@2x.png", getResource("/template/icon@2x.png"));
+            passTemplate.addFile("icon@3x.png", getResource("/template/icon@3x.png"));
+
+            pkSigningInformation = new PKSigningInformationUtil()
+                    .loadSigningInformationFromPKCS12AndIntermediateCertificate(
+                            getResource(certificatePath),
+                            certificatePassword,
+                            getResource("/cert/AppleWWDRCA.cer")
+                    );
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args) {
         Javalin app = Javalin.create().start(8080);
 
         app.get("/", ctx -> {
             ctx.contentType("text/html");
-
-            ctx.result(getResource("/index.html").readAllBytes());
+            ctx.result(indexHtml);
         });
 
         app.post("/upload", ctx -> {
@@ -144,18 +172,6 @@ public class Main {
                 .sharingProhibited(true)
                 .expirationDate(pdfData.validTillInstant)
                 .build();
-
-        PKSigningInformation pkSigningInformation = new PKSigningInformationUtil()
-                .loadSigningInformationFromPKCS12AndIntermediateCertificate(
-                        getResource("{P12_CERT_PATH}"),
-                        "{P12_CERT_PASSWORD}",
-                        getResource("/cert/AppleWWDRCA.cer")
-                );
-
-        PKPassTemplateInMemory passTemplate = new PKPassTemplateInMemory();
-        passTemplate.addFile("icon.png", getResource("/template/icon.png"));
-        passTemplate.addFile("icon@2x.png", getResource("/template/icon@2x.png"));
-        passTemplate.addFile("icon@3x.png", getResource("/template/icon@3x.png"));
 
         return new PKFileBasedSigningUtil()
                 .createSignedAndZippedPkPassArchive(pass, passTemplate, pkSigningInformation);
