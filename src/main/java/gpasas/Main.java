@@ -13,6 +13,7 @@ import de.brendamour.jpasskit.enums.PKBarcodeFormat;
 import de.brendamour.jpasskit.enums.PKPassType;
 import de.brendamour.jpasskit.passes.PKGenericPass;
 import de.brendamour.jpasskit.signing.*;
+import gpasas.model.PdfData;
 import io.javalin.Javalin;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;

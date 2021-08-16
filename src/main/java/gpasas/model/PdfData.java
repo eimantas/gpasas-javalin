@@ -1,4 +1,4 @@
-package gpasas;
+package gpasas.model;
 
 import java.time.Instant;
 
