@@ -68,7 +68,13 @@ public class Main {
 
         app.post("/upload", ctx -> {
             try {
-                byte[] pdfFile = ctx.uploadedFile("gpass").getContent().readAllBytes();
+                int sizeLimit = 128 * 1024; // 128kB
+
+                byte[] pdfFile = ctx.uploadedFile("gpass").getContent().readNBytes(sizeLimit);
+
+                if (pdfFile.length >= sizeLimit) {
+                    throw new RuntimeException("Uploaded file is too big");
+                }
 
                 PdfData pdfData = ExtractPdfData(pdfFile);
                 byte[] pkPass = MakePkPass(pdfData);
