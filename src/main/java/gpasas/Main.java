@@ -27,6 +27,7 @@ import java.security.cert.CertificateException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 public class Main {
     private static final byte[] indexHtml;
@@ -171,7 +172,7 @@ public class Main {
                 )
                 .formatVersion(1)
                 .passTypeIdentifier("pass.software.stork.gpass")
-                .serialNumber(Sha256.hash(pdfData.fullName + "/" + pdfData.dateOfBirth))
+                .serialNumber(UUID.randomUUID().toString())
                 .teamIdentifier("355U245N96")
                 .organizationName("VĮ Registrų Centras")
                 .logoText("Galimybių pasas")
