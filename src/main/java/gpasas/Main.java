@@ -52,6 +52,9 @@ public class Main {
                             certificatePassword,
                             getResource("/cert/AppleWWDRCA.cer")
                     );
+            passTemplate.addFile("logo.png", getResource("/template/logo.png"));
+            passTemplate.addFile("logo@2x.png", getResource("/template/logo@2x.png"));
+            passTemplate.addFile("logo@3x.png", getResource("/template/logo@3x.png"));
         }
         catch (Exception e) {
             throw new RuntimeException(e);
