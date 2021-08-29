@@ -45,6 +45,9 @@ public class Main {
             passTemplate.addFile("icon.png", getResource("/template/icon.png"));
             passTemplate.addFile("icon@2x.png", getResource("/template/icon@2x.png"));
             passTemplate.addFile("icon@3x.png", getResource("/template/icon@3x.png"));
+            passTemplate.addFile("logo.png", getResource("/template/logo.png"));
+            passTemplate.addFile("logo@2x.png", getResource("/template/logo@2x.png"));
+            passTemplate.addFile("logo@3x.png", getResource("/template/logo@3x.png"));
 
             pkSigningInformation = new PKSigningInformationUtil()
                     .loadSigningInformationFromPKCS12AndIntermediateCertificate(
@@ -52,9 +55,6 @@ public class Main {
                             certificatePassword,
                             getResource("/cert/AppleWWDRCA.cer")
                     );
-            passTemplate.addFile("logo.png", getResource("/template/logo.png"));
-            passTemplate.addFile("logo@2x.png", getResource("/template/logo@2x.png"));
-            passTemplate.addFile("logo@3x.png", getResource("/template/logo@3x.png"));
         }
         catch (Exception e) {
             throw new RuntimeException(e);
