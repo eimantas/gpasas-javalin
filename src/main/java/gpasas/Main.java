@@ -23,7 +23,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.security.cert.CertificateException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -134,7 +133,7 @@ public class Main {
         return pdfData;
     }
 
-    public static byte[] MakePkPass(PdfData pdfData) throws CertificateException, IOException, PKSigningException {
+    public static byte[] MakePkPass(PdfData pdfData) throws PKSigningException {
         PKPass pass = PKPass.builder()
                 .pass(
                         PKGenericPass.builder()
