@@ -1,9 +1,6 @@
 package gpasas;
 
-import com.google.zxing.BinaryBitmap;
-import com.google.zxing.LuminanceSource;
-import com.google.zxing.MultiFormatReader;
-import com.google.zxing.NotFoundException;
+import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import de.brendamour.jpasskit.PKBarcode;
@@ -26,6 +23,8 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class Main {
@@ -107,7 +106,10 @@ public class Main {
                 LuminanceSource source = new BufferedImageLuminanceSource(img);
                 BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
 
-                pdfData.qrText = new MultiFormatReader().decode(bitmap).getText();
+                Map<DecodeHintType, Boolean> hintMap = new HashMap<>();
+                hintMap.put(DecodeHintType.PURE_BARCODE, Boolean.TRUE);
+
+                pdfData.qrText = new MultiFormatReader().decode(bitmap, hintMap).getText();
             } catch (NotFoundException e) {
                 throw new RuntimeException("There is no QR code in the image");
             }
