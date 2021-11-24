@@ -12,24 +12,27 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 // https://stackoverflow.com/questions/45567173/extract-multiple-embedded-images-from-a-single-pdf-page-using-pdfbox
 public class ExtractImagesUseCase extends PDFStreamEngine {
     private final PDDocument document;
-    private BufferedImage lastImage;
+    private final List<BufferedImage> images = new LinkedList<>();
 
     public ExtractImagesUseCase(PDDocument document) {
         this.document = document;
     }
 
-    public BufferedImage execute() {
+    public List<BufferedImage> execute() {
         try {
+            images.clear();
+
             for (PDPage page : document.getPages()) {
                 processPage(page);
             }
 
-            return this.lastImage;
+            return this.images;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -48,7 +51,7 @@ public class ExtractImagesUseCase extends PDFStreamEngine {
             if (pdxObject instanceof PDImageXObject) {
                 PDImageXObject image = (PDImageXObject) pdxObject;
 
-                this.lastImage = image.getImage();
+                this.images.add(image.getImage());
             } else if (pdxObject instanceof PDFormXObject) {
                 PDFormXObject form = (PDFormXObject) pdxObject;
                 showForm(form);

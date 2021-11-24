@@ -24,6 +24,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -103,43 +104,43 @@ public class Main {
         PdfData pdfData = new PdfData();
 
         try (PDDocument document = PDDocument.load(request)) {
-            BufferedImage img = new ExtractImagesUseCase(document).execute();
+            List<BufferedImage> images = new ExtractImagesUseCase(document).execute();
 
-            if (img == null) {
-                throw new RuntimeException("No QR image found");
+            for (BufferedImage image : images) {
+                try {
+                    LuminanceSource source = new BufferedImageLuminanceSource(image);
+                    BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+
+                    Map<DecodeHintType, Boolean> hintMap = new HashMap<>();
+                    hintMap.put(DecodeHintType.PURE_BARCODE, Boolean.TRUE);
+
+                    pdfData.qrText = new MultiFormatReader().decode(bitmap, hintMap).getText();
+                } catch (NotFoundException e) {
+                    throw new RuntimeException("There is no QR code in the image");
+                }
+
+                try {
+                    String[] textLines = new PDFTextStripper().getText(document)
+                            .replace("\r", "")
+                            .split("\n");
+
+                    pdfData.fullName = textLines[2];
+                    pdfData.dateOfBirth = textLines[4];
+                    pdfData.validFrom = textLines[6];
+                    pdfData.validTill = textLines[8];
+                    pdfData.validTillInstant = LocalDateTime
+                            .parse(pdfData.validTill, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+                            .toInstant(ZoneOffset.ofHours(2));
+                }
+                catch (Exception e) {
+                    throw new RuntimeException("Unexpected text data in PDF file");
+                }
+
+                return pdfData;
             }
 
-            try {
-                LuminanceSource source = new BufferedImageLuminanceSource(img);
-                BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
-
-                Map<DecodeHintType, Boolean> hintMap = new HashMap<>();
-                hintMap.put(DecodeHintType.PURE_BARCODE, Boolean.TRUE);
-
-                pdfData.qrText = new MultiFormatReader().decode(bitmap, hintMap).getText();
-            } catch (NotFoundException e) {
-                throw new RuntimeException("There is no QR code in the image");
-            }
-
-            try {
-                String[] textLines = new PDFTextStripper().getText(document)
-                        .replace("\r", "")
-                        .split("\n");
-
-                pdfData.fullName = textLines[2];
-                pdfData.dateOfBirth = textLines[4];
-                pdfData.validFrom = textLines[6];
-                pdfData.validTill = textLines[8];
-                pdfData.validTillInstant = LocalDateTime
-                        .parse(pdfData.validTill, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
-                        .toInstant(ZoneOffset.ofHours(2));
-            }
-            catch (Exception e) {
-                throw new RuntimeException("Unexpected text data in PDF file");
-            }
+            throw new RuntimeException("No QR image found");
         }
-
-        return pdfData;
     }
 
     public static byte[] MakePkPass(PdfData pdfData) throws PKSigningException {
