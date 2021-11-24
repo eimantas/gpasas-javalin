@@ -151,7 +151,7 @@ public class Main {
                                 .primaryFieldBuilder(
                                         PKField.builder()
                                                 .key("fullName")
-                                                .label("Vardas, pavardė")
+                                                .label("Vardas ir pavardė")
                                                 .value(pdfData.fullName)
                                 )
                                 .secondaryFieldBuilder(
