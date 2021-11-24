@@ -29,6 +29,7 @@ import java.util.UUID;
 
 public class Main {
     private static final byte[] indexHtml;
+    private static final byte[] favicon;
     private static final PKPassTemplateInMemory passTemplate;
     private static final PKSigningInformation pkSigningInformation;
 
@@ -39,6 +40,7 @@ public class Main {
             String certificatePassword = "password123";
 
             indexHtml = getResource("/index.html").readAllBytes();
+            favicon = getResource("/favicon.ico").readAllBytes();
 
             passTemplate = new PKPassTemplateInMemory();
             passTemplate.addFile("icon.png", getResource("/template/icon.png"));
@@ -89,6 +91,11 @@ public class Main {
                 ctx.contentType("text/plain");
                 ctx.result("Oops, something went wrong. Please check that you have uploaded correct file.");
             }
+        });
+
+        app.get("/favicon.ico", ctx -> {
+            ctx.contentType("image/x-icon");
+            ctx.result(favicon);
         });
     }
 
