@@ -89,7 +89,7 @@ public class Main {
                 ctx.result(pkPass);
             } catch (Exception e) {
                 ctx.status(500);
-                ctx.contentType("text/plain");
+                ctx.contentType("text/plain; charset=utf-8");
                 ctx.result("Atsiprašome, kažkas įvyko ne taip. Patikrinkite ar įkėlėte teisingą failą. iOS įrenginiuose rekomenduojame naudoti Safari naršyklę.");
             }
         });
