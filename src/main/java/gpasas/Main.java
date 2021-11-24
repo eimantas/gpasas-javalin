@@ -89,7 +89,7 @@ public class Main {
             } catch (Exception e) {
                 ctx.status(500);
                 ctx.contentType("text/plain");
-                ctx.result("Oops, something went wrong. Please check that you have uploaded correct file.");
+                ctx.result("Atsiprašome, kažkas įvyko ne taip. Patikrinkite ar įkėlėte teisingą failą. iOS įrenginiuose rekomenduojame naudoti Safari naršyklę.");
             }
         });
 
