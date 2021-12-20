@@ -1,6 +1,6 @@
 # Prerequisites
 
-- JDK 11
+- JDK 11 or later
 - Maven
 - Apple developer certificate
 
