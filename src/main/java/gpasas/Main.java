@@ -64,7 +64,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Javalin app = Javalin.create().start(8080);
+        Javalin app = Javalin.create().start("127.0.0.1", 8080);
 
         app.get("/", ctx -> {
             ctx.contentType("text/html");
