@@ -172,6 +172,36 @@ public class Main {
                                                 .label("Galioja iki")
                                                 .value(pdfData.validTill)
                                 )
+                                .backFieldBuilder(
+                                        PKField.builder()
+                                                .key("url")
+                                                .label("Svetainė")
+                                                .value("https://www.gpasas.lt")
+                                )
+                                .backFieldBuilder(
+                                        PKField.builder()
+                                                .key("general-info")
+                                                .label("Informacija Lietuvos gyventojams")
+                                                .value("+370 5 236 45 77")
+                                )
+                                .backFieldBuilder(
+                                        PKField.builder()
+                                                .key("work-time")
+                                                .label("Darbo laikas")
+                                                .value("I–IV 8:00–17:00\nV 8:00–16:00")
+                                )
+                                .backFieldBuilder(
+                                        PKField.builder()
+                                                .key("vaccination-url")
+                                                .label("Registracija vakcinai")
+                                                .value("https://koronastop.lt/")
+                                )
+                                .backFieldBuilder(
+                                        PKField.builder()
+                                                .key("mobi-url")
+                                                .label("GP telefono piniginėje")
+                                                .value("https://gpasas.mobi/")
+                                )
                 )
                 .barcodeBuilder(
                         PKBarcode.builder()
